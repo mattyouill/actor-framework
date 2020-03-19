@@ -56,11 +56,6 @@ public:
     return self_->spawn<T, Os>(std::forward<Ts>(xs)...);
   }
 
-  template <class T, spawn_options Os = no_spawn_options>
-  infer_handle_from_state_t<T> spawn() {
-    return self_->spawn<T, Os>();
-  }
-
   template <spawn_options Os = no_spawn_options, class F, class... Ts>
   typename infer_handle_from_fun<F>::type
   spawn(F fun, Ts&&... xs) {
