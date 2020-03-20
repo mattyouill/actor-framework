@@ -22,28 +22,41 @@
 
 #include "caf/detail/core_export.hpp"
 #include "caf/detail/type_list.hpp"
+#include "caf/fwd.hpp"
+
+namespace caf::detail {
+
+template <class In, class Out>
+struct replies_to_helper;
+
+template <class... In, class Out>
+struct replies_to_helper<type_list<In...>, type_list<Out>> {
+  using type = Out(In...);
+};
+
+template <class... In, class Out0, class Out1, class... Outs>
+struct replies_to_helper<type_list<In...>, type_list<Out0, Out1, Outs...>> {
+  using type = result<Out0, Out1, Outs...>(In...);
+};
+
+} // namespace caf::detail
 
 namespace caf {
 
-/// @cond PRIVATE
+/// @private
 CAF_CORE_EXPORT std::string
 replies_to_type_name(size_t input_size, const std::string* input,
                      size_t output_size, const std::string* output);
-/// @endcond
-
-template <class...>
-struct output_tuple {};
-
-template <class Input, class Output>
-struct typed_mpi {};
 
 template <class... Is>
 struct replies_to {
   template <class... Os>
-  using with = typed_mpi<detail::type_list<Is...>, output_tuple<Os...>>;
+  using with =
+    typename detail::replies_to_helper<detail::type_list<Is...>,
+                                       detail::type_list<Os...>>::type;
 };
 
 template <class... Is>
-using reacts_to = typed_mpi<detail::type_list<Is...>, output_tuple<void>>;
+using reacts_to = void(Is...);
 
 } // namespace caf

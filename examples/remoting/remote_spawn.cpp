@@ -19,9 +19,8 @@
 #include "caf/io/all.hpp"
 
 // --(rst-calculator-begin)--
-using calculator
-  = caf::typed_actor<caf::replies_to<caf::add_atom, int, int>::with<int>,
-                     caf::replies_to<caf::sub_atom, int, int>::with<int>>;
+using calculator = caf::typed_actor<int(caf::add_atom, int, int),
+                                    int(caf::sub_atom, int, int)>;
 // --(rst-calculator-end)--
 
 CAF_BEGIN_TYPE_ID_BLOCK(remote_spawn, first_custom_type_id)

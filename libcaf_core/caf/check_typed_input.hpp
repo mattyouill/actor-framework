@@ -26,16 +26,6 @@
 namespace caf {
 
 template <class T>
-struct output_types_of {
-  // nop
-};
-
-template <class In, class Out>
-struct output_types_of<typed_mpi<In, Out>> {
-  using type = Out;
-};
-
-template <class T>
 struct signatures_of {
   using type = typename std::remove_pointer<T>::type::signatures;
 };
@@ -53,7 +43,7 @@ template <class T>
 struct is_void_response : std::false_type {};
 
 template <>
-struct is_void_response<detail::type_list<void>> : std::true_type {};
+struct is_void_response<void> : std::true_type {};
 
 // true for the purpose of type checking performed by send()
 template <>

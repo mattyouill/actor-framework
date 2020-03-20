@@ -17,8 +17,7 @@ using std::vector;
 using std::chrono::seconds;
 using namespace caf;
 
-using cell = typed_actor<reacts_to<put_atom, int>,
-                         replies_to<get_atom>::with<int>>;
+using cell = typed_actor<void(put_atom, int), int(get_atom)>;
 
 struct cell_state {
   int value = 0;

@@ -14,8 +14,8 @@ using namespace caf;
 
 namespace {
 
-using calculator_actor = typed_actor<replies_to<add_atom, int, int>::with<int>,
-                                     replies_to<sub_atom, int, int>::with<int>>;
+using calculator_actor
+  = typed_actor<int(add_atom, int, int), int(sub_atom, int, int)>;
 
 // prototypes and forward declarations
 behavior calculator_fun(event_based_actor* self);

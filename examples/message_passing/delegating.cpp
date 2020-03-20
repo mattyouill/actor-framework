@@ -10,7 +10,7 @@ using namespace caf;
 
 // using add_atom = atom_constant<atom("add")>; (defined in atom.hpp)
 
-using calc = typed_actor<replies_to<add_atom, int, int>::with<int>>;
+using calc = typed_actor<int(add_atom, int, int)>;
 
 void actor_a(event_based_actor* self, const calc& worker) {
   self->request(worker, std::chrono::seconds(10), add_atom_v, 1, 2)

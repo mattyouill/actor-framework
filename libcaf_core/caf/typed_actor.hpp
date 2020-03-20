@@ -47,8 +47,7 @@ class typed_broker;
 } // namespace io
 
 /// Identifies a statically typed actor.
-/// @tparam Sigs Signature of this actor as `replies_to<...>::with<...>`
-///              parameter pack.
+/// @tparam Sigs Function signatures for all accepted messages.
 template <class... Sigs>
 class typed_actor : detail::comparable<typed_actor<Sigs...>>,
                     detail::comparable<typed_actor<Sigs...>, actor>,

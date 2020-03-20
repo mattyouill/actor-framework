@@ -12,8 +12,8 @@ using namespace caf;
 
 namespace {
 
-using calculator_type = typed_actor<replies_to<add_atom, int, int>::with<int>,
-                                    replies_to<sub_atom, int, int>::with<int>>;
+using calculator_type
+  = typed_actor<int(add_atom, int, int), int(sub_atom, int, int)>;
 
 calculator_type::behavior_type typed_calculator_fun(calculator_type::pointer) {
   return {
